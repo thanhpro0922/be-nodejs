@@ -1,5 +1,4 @@
 import * as Popper from "https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js";
-
 //@ FileUploadWithPreview
 const upload = new FileUploadWithPreview.FileUploadWithPreview("upload-image", {
     multiple: true, //! Cho phep up nhieu anh
@@ -55,7 +54,7 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
     if (data.images) {
         htmlImages += `<div class="inner-images">`;
         for (const image of data.images) {
-            htmlImages += `<img src="${image}"`;
+            htmlImages += `<img src="${image}">`;
         }
         htmlImages += `</div>`;
     }
@@ -69,6 +68,12 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
     body.insertBefore(div, boxTyping);
 
     body.scrollTop = body.scrollHeight;
+
+    //@ preview Image
+    const boxImages = div.querySelector(".inner-images");
+    if (boxImages) {
+        const gallery = new Viewer(boxImages);
+    }
 });
 
 //@ End SERVER_RETURN_MESSAGE
@@ -163,3 +168,11 @@ if (elementListTyping) {
 }
 
 //@ End SERVER_RETURN_TYPING
+
+//@ Preview Image
+const chatBody = document.querySelector(".chat .inner-body");
+
+if (chatBody) {
+    const gallery = new Viewer(chatBody);
+}
+//@ End Preview Image
