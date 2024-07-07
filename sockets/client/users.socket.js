@@ -78,5 +78,42 @@ module.exports = async (res) => {
                 );
             }
         });
+        //* Người dùng từ chối kết bạn
+        socket.on("CLIENT_REFUSE_FRIEND", async (userId) => {
+            const myUserId = res.locals.user.id;
+
+            //# Xóa id của A vào acceptFriends của B
+            const existUserAInB = await User.findOne({
+                _id: myUserId,
+                acceptFriends: userId,
+            });
+
+            if (existUserAInB) {
+                await User.updateOne(
+                    {
+                        _id: myUserId,
+                    },
+                    {
+                        $pull: { acceptFriends: userId },
+                    }
+                );
+            }
+            //# Xóa id của A vào requestFriends của B
+            const existUserBInA = await User.findOne({
+                _id: userId,
+                requestFriends: myUserId,
+            });
+
+            if (existUserBInA) {
+                await User.updateOne(
+                    {
+                        _id: userId,
+                    },
+                    {
+                        $pull: { requestFriends: myUserId },
+                    }
+                );
+            }
+        });
     });
 };
