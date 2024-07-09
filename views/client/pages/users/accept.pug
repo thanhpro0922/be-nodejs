@@ -10,7 +10,7 @@ block main
                 +box-head("Lời mời đã nhận")
         .row
             each user in users
-                .col-6
+                .col-6fa
                     div(class="box-user")
                         div(class="inner-avatar")
                             img(src=(user.avatar ? user.avatar : "/images/Avatar.png") alt=user.fullName)
@@ -23,4 +23,4 @@ block main
                                 button(class="btn btn-sm btn-primary mr-1" btn-accepted-friend disabled) Đã chấp nhận
 
         block script
-        script(src="/js/users.js")
+        script(type='module' src="/js/users.js")

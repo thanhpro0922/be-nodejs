@@ -24,7 +24,7 @@ module.exports = async (res) => {
                     }
                 );
             }
-            //# Thêm id của A vào requestFriends của B
+            //# Thêm id của B vào requestFriends của A
             const existUserBInA = await User.findOne({
                 _id: myUserId,
                 requestFriends: userId,
@@ -40,7 +40,20 @@ module.exports = async (res) => {
                     }
                 );
             }
+            // Lấy độ dài acceptFriends của B trả về cho B
+
+            const infoUserB = await User.findOne({
+                _id: userId,
+            });
+
+            const lengthAcceptFriends = infoUserB.acceptFriends.length;
+
+            socket.broadcast.emit("SERVER_RETURN_LENGTH_ACCEPT_FRIEND", {
+                userId: userId,
+                lengthAcceptFriends: lengthAcceptFriends,
+            });
         });
+
         //* Người dùng hủy gửi yêu cầu kết bạn
         socket.on("CLIENT_CANCEL_FRIEND", async (userId) => {
             const myUserId = res.locals.user.id;
@@ -148,7 +161,6 @@ module.exports = async (res) => {
                 _id: userId,
                 requestFriends: myUserId,
             });
-
             if (existUserBInA) {
                 await User.updateOne(
                     {
