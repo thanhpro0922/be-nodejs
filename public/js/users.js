@@ -74,6 +74,7 @@ socket.on("SERVER_RETURN_INFO_ACCEPT_FRIEND", (data) => {
         //@@ Draw the user to the interface
         const newBoxUser = document.createElement("div");
         newBoxUser.classList.add("col-6");
+        newBoxUser.setAttribute("user-id", data.infoUserA._id);
 
         newBoxUser.innerHTML = `<div class="box-user">
                 <div class="inner-avatar">
@@ -133,3 +134,21 @@ socket.on("SERVER_RETURN_INFO_ACCEPT_FRIEND", (data) => {
     }
 });
 //@ End SERVER_RETURN_INFO_ACCEPT_FRIEND
+
+//@ SERVER_RETURN_USER_ID_CANCEL_FRIEND
+socket.on("SERVER_RETURN_USER_ID_CANCEL_FRIEND", (data) => {
+    const dataUserAccept = document.querySelector("[data-users-accept]");
+    const userId = dataUserAccept.getAttribute("data-users-accept");
+
+    if (userId == data.userId) {
+        // Delete A from list B
+        const boxUserRemove = dataUserAccept.querySelector(
+            `[user-id="${data.userIdA}"]`
+        );
+        if (boxUserRemove) {
+            dataUserAccept.removeChild(boxUserRemove);
+        }
+    }
+});
+
+//@ End SERVER_RETURN_USER_ID_CANCEL_FRIEND
