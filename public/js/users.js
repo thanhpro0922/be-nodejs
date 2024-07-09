@@ -120,6 +120,16 @@ socket.on("SERVER_RETURN_INFO_ACCEPT_FRIEND", (data) => {
             socket.emit("CLIENT_REFUSE_FRIEND", userId);
         });
         //@@ End Delete friend request
+
+        //@@ Accept friend request
+        const btnAcceptFriend = newBoxUser.querySelector("[btn-accept-friend]");
+        btnAcceptFriend.addEventListener("click", () => {
+            btnAcceptFriend.closest(".box-user").classList.add("accepted");
+            const userId = btnAcceptFriend.getAttribute("btn-accept-friend");
+
+            socket.emit("CLIENT_ACCEPT_FRIEND", userId);
+        });
+        //@@ End Accept friend request
     }
 });
 //@ End SERVER_RETURN_INFO_ACCEPT_FRIEND
