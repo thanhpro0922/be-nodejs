@@ -54,7 +54,7 @@ if (listBtnAcceptFriend.length > 0) {
 }
 //@ End Chức năng chấp nhận kết bạn
 
-// SERVER_RETURN_LENGTH_ACCEPT_FRIEND
+//@ SERVER_RETURN_LENGTH_ACCEPT_FRIEND
 socket.on("SERVER_RETURN_LENGTH_ACCEPT_FRIEND", (data) => {
     const badgeUsersAccept = document.querySelector("[badge-users-accept]");
     const userId = badgeUsersAccept.getAttribute("badge-users-accept");
@@ -63,4 +63,5 @@ socket.on("SERVER_RETURN_LENGTH_ACCEPT_FRIEND", (data) => {
         badgeUsersAccept.innerHTML = data.lengthAcceptFriends;
     }
 });
-// End SERVER_RETURN_LENGTH_ACCEPT_FRIEND
+//@ End SERVER_RETURN_LENGTH_ACCEPT_FRIEND
+
