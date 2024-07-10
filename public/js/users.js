@@ -178,3 +178,28 @@ socket.on("SERVER_RETURN_USER_ID_CANCEL_FRIEND", (data) => {
 });
 
 //@ End SERVER_RETURN_USER_ID_CANCEL_FRIEND
+
+//@ FUNCTION RETURN STATUS
+const statusOnline = (userId, status) => {
+    const dataUsersFriend = document.querySelector("[data-users-friend]");
+    if (dataUsersFriend) {
+        const boxUser = dataUsersFriend.querySelector(`[user-id="${userId}"]`);
+        if (boxUser) {
+            boxUser.querySelector("[status]").setAttribute("status", status);
+        }
+    }
+};
+//@ End FUNCTION RETURN STATUS
+
+//@ SERVER_RETURN_USER_ONLINE
+socket.on("SERVER_RETURN_USER_ONLINE", (userId) => {
+    statusOnline(userId, "online");
+});
+
+//@ End SERVER_RETURN_USER_ONLINE
+
+//@ SERVER_RETURN_USER_OFFLINE
+socket.on("SERVER_RETURN_USER_OFFLINE", (userId) => {
+    statusOnline(userId, "offline");
+});
+//@ End SERVER_RETURN_USER_OFFLINE
